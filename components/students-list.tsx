@@ -8,6 +8,7 @@ import { getTotalTrainingTime } from "@/lib/mock-data"
 
 interface StudentsListProps {
   onSelectStudent: (studentId: string) => void
+  onOpenPagos: () => void 
 }
 
 export function StudentsList({ onSelectStudent }: StudentsListProps) {
