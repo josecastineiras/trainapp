@@ -8,8 +8,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'TrainApp - Progreso de Tenis',
-  description: 'Aplicacion para atletas - Registra tu progreso y mejora tu rendimiento',
+  title: 'TrainApp - Tu entrenamiento en un solo lugar',
+  description: 'Aplicación para atletas y entrenadores',
   generator: 'v0.app',
   icons: {
     icon: [
