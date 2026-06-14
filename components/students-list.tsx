@@ -8,9 +8,10 @@ import { getTotalTrainingTime } from "@/lib/mock-data"
 interface StudentsListProps {
   onSelectStudent: (studentId: string) => void
   onOpenPagos: () => void
+  onOpenCalendario: () => void
 }
 
-export function StudentsList({ onSelectStudent, onOpenPagos }: StudentsListProps) {
+export function StudentsList({ onSelectStudent, onOpenPagos, onOpenCalendario }: StudentsListProps) {
   const { students, getStudentFeedback } = useStudents()
   const { user } = useAuth()
   const sportConfig = getSportConfig(user?.sport ?? "tenis")
@@ -18,20 +19,15 @@ export function StudentsList({ onSelectStudent, onOpenPagos }: StudentsListProps
 
   const getLevelColor = (level: string) => {
     switch (level) {
-      case "principiante":
-        return "bg-chart-2 text-chart-2"
-      case "intermedio":
-        return "bg-chart-1 text-chart-1"
-      case "avanzado":
-        return "bg-accent text-accent-foreground"
-      default:
-        return "bg-muted text-muted-foreground"
+      case "principiante": return "bg-chart-2 text-chart-2"
+      case "intermedio":   return "bg-chart-1 text-chart-1"
+      case "avanzado":     return "bg-accent text-accent-foreground"
+      default:             return "bg-muted text-muted-foreground"
     }
   }
 
-  const getLevelLabel = (level: string) => {
-    return level.charAt(0).toUpperCase() + level.slice(1)
-  }
+  const getLevelLabel = (level: string) =>
+    level.charAt(0).toUpperCase() + level.slice(1)
 
   return (
     <div className="space-y-4">
@@ -39,6 +35,13 @@ export function StudentsList({ onSelectStudent, onOpenPagos }: StudentsListProps
         <h2 className="text-xl font-bold text-foreground">Mis {sportConfig.studentNoun}s</h2>
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground">{students.length} {noun}</span>
+          <button
+            onClick={onOpenCalendario}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-xs font-medium hover:bg-muted/80 transition-colors"
+          >
+            <Calendar className="w-3.5 h-3.5" />
+            Agenda
+          </button>
           <button
             onClick={onOpenPagos}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-teal-950 text-teal-400 text-xs font-medium hover:bg-teal-900 transition-colors"
