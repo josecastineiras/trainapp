@@ -19,12 +19,12 @@ interface StudentPayment {
 }
 
 const STUDENTS: StudentPayment[] = [
-  { id: "1", initials: "LR", name: "Lucas Rodríguez",  plan: "Plan mensual · Fuerza",  amount: 8500,  status: "pagó",      date: "cobrado 3/6",  color: "bg-teal-600" },
-  { id: "2", initials: "SP", name: "Sofía Peralta",    plan: "Plan mensual · Cardio",  amount: 8500,  status: "pendiente", date: "vence 20/6",   color: "bg-violet-600" },
-  { id: "3", initials: "TM", name: "Tomás Méndez",     plan: "Plan semanal · Fútbol",  amount: 12000, status: "vencido",   date: "venció 1/6",   color: "bg-orange-700" },
-  { id: "4", initials: "MG", name: "Martina García",   plan: "Plan mensual · Yoga",    amount: 7000,  status: "pagó",      date: "cobrado 5/6",  color: "bg-amber-700" },
+  { id: "1", initials: "LR", name: "Lucas Rodríguez",  plan: "Plan mensual · Tenis",  amount: 8500,  status: "pagó",      date: "cobrado 3/6",  color: "bg-teal-600" },
+  { id: "2", initials: "SP", name: "Sofía Peralta",    plan: "Plan mensual · Tenis",  amount: 8500,  status: "pendiente", date: "vence 20/6",   color: "bg-violet-600" },
+  { id: "3", initials: "TM", name: "Tomás Méndez",     plan: "Plan semanal · Tenis",  amount: 12000, status: "vencido",   date: "venció 1/6",   color: "bg-orange-700" },
+  { id: "4", initials: "MG", name: "Martina García",   plan: "Plan mensual · Tenis",    amount: 7000,  status: "pagó",      date: "cobrado 5/6",  color: "bg-amber-700" },
   { id: "5", initials: "RV", name: "Rodrigo Vega",     plan: "Plan mensual · Tenis",   amount: 9000,  status: "pendiente", date: "vence 18/6",   color: "bg-pink-700" },
-  { id: "6", initials: "CA", name: "Camila Acosta",    plan: "Plan mensual · Pilates", amount: 7500,  status: "pagó",      date: "cobrado 8/6",  color: "bg-blue-600" },
+  { id: "6", initials: "CA", name: "Camila Acosta",    plan: "Plan mensual · Tenis", amount: 7500,  status: "pagó",      date: "cobrado 8/6",  color: "bg-blue-600" },
 ]
 
 const STATUS_STYLES: Record<PaymentStatus, { badge: string; amount: string }> = {
