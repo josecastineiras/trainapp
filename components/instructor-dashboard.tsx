@@ -4,8 +4,9 @@ import { AppHeader } from "./app-header"
 import { StudentsList } from "./students-list"
 import { StudentDetail } from "./student-detail"
 import { PagosView } from "./pagos-view"
+import { InstructorCalendar } from "./instructor-calendar"
 
-type View = "list" | "detail" | "pagos"
+type View = "list" | "detail" | "pagos" | "calendario"
 
 export function InstructorDashboard() {
   const [view, setView] = useState<View>("list")
@@ -26,16 +27,16 @@ export function InstructorDashboard() {
       <AppHeader />
       <main className="max-w-lg mx-auto px-4 py-6">
         {view === "detail" && selectedStudentId ? (
-          <StudentDetail
-            studentId={selectedStudentId}
-            onBack={handleBack}
-          />
+          <StudentDetail studentId={selectedStudentId} onBack={handleBack} />
         ) : view === "pagos" ? (
           <PagosView onBack={handleBack} />
+        ) : view === "calendario" ? (
+          <InstructorCalendar onBack={handleBack} />
         ) : (
           <StudentsList
             onSelectStudent={handleSelectStudent}
             onOpenPagos={() => setView("pagos")}
+            onOpenCalendario={() => setView("calendario")}
           />
         )}
       </main>
