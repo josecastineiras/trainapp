@@ -1,17 +1,16 @@
 "use client"
-
 import { useStudents } from "@/lib/students-context"
 import { useAuth } from "@/lib/auth-context"
 import { getSportConfig } from "@/lib/types"
-import { ChevronRight, Clock, Calendar, TrendingUp } from "lucide-react"
+import { ChevronRight, Clock, Calendar, TrendingUp, Coins } from "lucide-react"
 import { getTotalTrainingTime } from "@/lib/mock-data"
 
 interface StudentsListProps {
   onSelectStudent: (studentId: string) => void
-  onOpenPagos: () => void 
+  onOpenPagos: () => void
 }
 
-export function StudentsList({ onSelectStudent }: StudentsListProps) {
+export function StudentsList({ onSelectStudent, onOpenPagos }: StudentsListProps) {
   const { students, getStudentFeedback } = useStudents()
   const { user } = useAuth()
   const sportConfig = getSportConfig(user?.sport ?? "tenis")
@@ -38,7 +37,16 @@ export function StudentsList({ onSelectStudent }: StudentsListProps) {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-foreground">Mis {sportConfig.studentNoun}s</h2>
-        <span className="text-sm text-muted-foreground">{students.length} {noun}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">{students.length} {noun}</span>
+          <button
+            onClick={onOpenPagos}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-teal-950 text-teal-400 text-xs font-medium hover:bg-teal-900 transition-colors"
+          >
+            <Coins className="w-3.5 h-3.5" />
+            Pagos
+          </button>
+        </div>
       </div>
 
       <div className="space-y-3">
@@ -46,7 +54,6 @@ export function StudentsList({ onSelectStudent }: StudentsListProps) {
           const totalMinutes = getTotalTrainingTime(student.sessions)
           const totalHours = Math.floor(totalMinutes / 60)
           const feedbackCount = getStudentFeedback(student.id).length
-
           return (
             <button
               key={student.id}
