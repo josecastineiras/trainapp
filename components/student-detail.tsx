@@ -3,10 +3,12 @@
 import { useState } from "react"
 import { useStudents } from "@/lib/students-context"
 import { useAuth } from "@/lib/auth-context"
-import { ArrowLeft, MessageSquare, FileText, Clock, Calendar, TrendingUp } from "lucide-react"
+import { ArrowLeft, MessageSquare, FileText, Clock, Calendar, TrendingUp, Sparkles } from "lucide-react"
 import { getTotalTrainingTime, getSkillAverages } from "@/lib/mock-data"
 import { AddFeedbackForm } from "./add-feedback-form"
 import { FeedbackList } from "./feedback-list"
+import { AIProgressionCard } from "./ai-progression-card"
+import { AIRoutineGenerator } from "./ai-routine-generator"
 
 interface StudentDetailProps {
   studentId: string
@@ -17,6 +19,7 @@ export function StudentDetail({ studentId, onBack }: StudentDetailProps) {
   const { getStudentById, getStudentFeedback } = useStudents()
   const { user } = useAuth()
   const [showFeedbackForm, setShowFeedbackForm] = useState(false)
+  const [showRoutineGenerator, setShowRoutineGenerator] = useState(false)
 
   const student = getStudentById(studentId)
   const feedback = getStudentFeedback(studentId)
@@ -117,6 +120,18 @@ export function StudentDetail({ studentId, onBack }: StudentDetailProps) {
         </div>
       )}
 
+      {/* Asistente IA */}
+      <div className="space-y-3">
+        <button
+          onClick={() => setShowRoutineGenerator(true)}
+          className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-medium py-3 px-4 rounded-xl transition-all hover:opacity-90"
+        >
+          <Sparkles className="w-4 h-4" />
+          Generar rutina con IA
+        </button>
+        <AIProgressionCard studentId={studentId} onApplyToRoutine={() => setShowRoutineGenerator(true)} />
+      </div>
+
       {/* Action Buttons */}
       <div className="grid grid-cols-2 gap-3">
         <button
@@ -147,6 +162,16 @@ export function StudentDetail({ studentId, onBack }: StudentDetailProps) {
           studentId={studentId}
           instructorId={user.id}
           onClose={() => setShowFeedbackForm(false)}
+        />
+      )}
+
+      {/* AI Routine Generator Modal */}
+      {showRoutineGenerator && (
+        <AIRoutineGenerator
+          studentId={studentId}
+          studentName={student.name}
+          sport={student.sport}
+          onClose={() => setShowRoutineGenerator(false)}
         />
       )}
     </div>
