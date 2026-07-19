@@ -120,14 +120,14 @@ export function StudentDetail({ studentId, onBack }: StudentDetailProps) {
         </div>
       )}
 
-      {/* Asistente IA */}
+      {/* Asistente TIA */}
       <div className="space-y-3">
         <button
           onClick={() => setShowRoutineGenerator(true)}
           className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-medium py-3 px-4 rounded-xl transition-all hover:opacity-90"
         >
           <Sparkles className="w-4 h-4" />
-          Generar rutina con IA
+          Generar rutina con TIA
         </button>
         <AIProgressionCard studentId={studentId} onApplyToRoutine={() => setShowRoutineGenerator(true)} />
       </div>

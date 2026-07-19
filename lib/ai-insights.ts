@@ -1,4 +1,4 @@
-// Motor de IA simulado (mockup). No hace llamadas reales:
+// Motor de la agente TIA simulado (mockup). No hace llamadas reales:
 // devuelve insights deterministas por atleta para demostrar la funcionalidad.
 
 export type RiskLevel = "verde" | "amarillo" | "rojo"

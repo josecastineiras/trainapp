@@ -17,7 +17,7 @@ export function AIProgressionCard({ studentId, onApplyToRoutine }: AIProgression
         <div className="w-7 h-7 rounded-lg bg-primary/15 flex items-center justify-center">
           <Sparkles className="w-4 h-4 text-primary" />
         </div>
-        <h3 className="font-semibold text-foreground text-sm">Sugerencia de progresion IA</h3>
+            <h3 className="font-semibold text-foreground text-sm">Sugerencia de progresion de TIA</h3>
       </div>
 
       {s.stalledWeeks > 0 ? (

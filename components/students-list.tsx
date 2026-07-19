@@ -61,7 +61,7 @@ export function StudentsList({ onSelectStudent, onOpenPagos, onOpenCalendario }:
         </div>
       </div>
 
-      {/* Alerta temprana de abandono (IA) */}
+      {/* Alerta temprana de abandono (agente TIA) */}
       {atRisk.length > 0 && (
         <div className="rounded-xl border border-accent/40 bg-accent/10 p-4">
           <div className="flex items-center gap-2 mb-2">
@@ -69,7 +69,7 @@ export function StudentsList({ onSelectStudent, onOpenPagos, onOpenCalendario }:
             <h3 className="text-sm font-semibold text-foreground">Alerta temprana de abandono</h3>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            La IA detecto{" "}
+            La agente TIA detecto{" "}
             {rojoCount > 0 && (
               <>
                 <span className="font-medium text-destructive">{rojoCount} en riesgo alto</span>

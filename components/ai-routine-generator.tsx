@@ -31,7 +31,7 @@ export function AIRoutineGenerator({ studentId, studentName, sport, onClose }: A
   function handleGenerate() {
     const input: RoutineGoalInput = { objetivo, enfoque, diasPorSemana, considerarLesiones }
     setStage("thinking")
-    // Simulacion del procesamiento de IA (mockup, sin llamada real)
+    // Simulacion del procesamiento de la agente TIA (mockup, sin llamada real)
     setTimeout(() => {
       setRoutine(generateWeeklyRoutine(studentId, input))
       setStage("review")
@@ -48,7 +48,7 @@ export function AIRoutineGenerator({ studentId, studentName, sport, onClose }: A
               <Sparkles className="w-4 h-4 text-primary" />
             </div>
             <div>
-              <h2 className="font-semibold text-foreground leading-tight">Generar rutina con IA</h2>
+              <h2 className="font-semibold text-foreground leading-tight">Generar rutina con TIA</h2>
               <p className="text-xs text-muted-foreground">{studentName}</p>
             </div>
           </div>
@@ -58,11 +58,11 @@ export function AIRoutineGenerator({ studentId, studentName, sport, onClose }: A
         </div>
 
         <div className="p-4 space-y-4">
-          {/* Aviso: la IA no reemplaza al entrenador */}
+          {/* Aviso: la agente TIA no reemplaza al entrenador */}
           <div className="flex items-start gap-2 p-3 rounded-xl bg-primary/10 border border-primary/20">
             <ShieldCheck className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
             <p className="text-xs text-foreground leading-relaxed">
-              La IA arma el borrador en segundos a partir de datos reales. <strong>Nada se envia al atleta sin tu aprobacion.</strong>
+              La agente TIA arma el borrador en segundos a partir de datos reales. <strong>Nada se envia al atleta sin tu aprobacion.</strong>
             </p>
           </div>
 
@@ -139,7 +139,7 @@ export function AIRoutineGenerator({ studentId, studentName, sport, onClose }: A
               </button>
 
               <p className="text-xs text-muted-foreground leading-relaxed">
-                La IA usa el objetivo, el nivel, las lesiones previas y el historial real de cargas del atleta.
+                La agente TIA usa el objetivo, el nivel, las lesiones previas y el historial real de cargas del atleta.
               </p>
 
               <button
