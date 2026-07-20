@@ -2,8 +2,9 @@
 import { useStudents } from "@/lib/students-context"
 import { useAuth } from "@/lib/auth-context"
 import { getSportConfig } from "@/lib/types"
-import { ChevronRight, Clock, Calendar, TrendingUp, Coins } from "lucide-react"
+import { ChevronRight, Clock, Calendar, TrendingUp, Coins, AlertTriangle } from "lucide-react"
 import { getTotalTrainingTime } from "@/lib/mock-data"
+import { getRetentionRisk, RISK_STYLES } from "@/lib/ai-insights"
 
 interface StudentsListProps {
   onSelectStudent: (studentId: string) => void
@@ -29,6 +30,14 @@ export function StudentsList({ onSelectStudent, onOpenPagos, onOpenCalendario }:
   const getLevelLabel = (level: string) =>
     level.charAt(0).toUpperCase() + level.slice(1)
 
+  const atRisk = students
+    .map((s) => ({ student: s, risk: getRetentionRisk(s.id) }))
+    .filter((x) => x.risk.level !== "verde")
+    .sort((a, b) => b.risk.score - a.risk.score)
+
+  const rojoCount = atRisk.filter((x) => x.risk.level === "rojo").length
+  const amarilloCount = atRisk.filter((x) => x.risk.level === "amarillo").length
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -52,11 +61,50 @@ export function StudentsList({ onSelectStudent, onOpenPagos, onOpenCalendario }:
         </div>
       </div>
 
+      {/* Alerta temprana de abandono (agente TIA) */}
+      {atRisk.length > 0 && (
+        <div className="rounded-xl border border-accent/40 bg-accent/10 p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <AlertTriangle className="w-4 h-4 text-accent-foreground" />
+            <h3 className="text-sm font-semibold text-foreground">Alerta temprana de abandono</h3>
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            La agente TIA detecto{" "}
+            {rojoCount > 0 && (
+              <>
+                <span className="font-medium text-destructive">{rojoCount} en riesgo alto</span>
+                {amarilloCount > 0 ? " y " : ""}
+              </>
+            )}
+            {amarilloCount > 0 && (
+              <span className="font-medium text-accent-foreground">{amarilloCount} para vigilar</span>
+            )}
+            . Retener cuesta una fraccion de conseguir un {sportConfig.studentNoun.toLowerCase()} nuevo.
+          </p>
+          <div className="mt-3 space-y-2">
+            {atRisk.slice(0, 3).map(({ student, risk }) => (
+              <button
+                key={student.id}
+                onClick={() => onSelectStudent(student.id)}
+                className="w-full flex items-center gap-2 text-left rounded-lg bg-card border border-border px-3 py-2 hover:border-primary/50 transition-colors"
+              >
+                <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${RISK_STYLES[risk.level].dot}`} />
+                <span className="text-sm font-medium text-foreground truncate">{student.name}</span>
+                <span className="text-xs text-muted-foreground truncate flex-1">{risk.headline}</span>
+                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="space-y-3">
         {students.map((student) => {
           const totalMinutes = getTotalTrainingTime(student.sessions)
           const totalHours = Math.floor(totalMinutes / 60)
           const feedbackCount = getStudentFeedback(student.id).length
+          const risk = getRetentionRisk(student.id)
+          const riskStyle = RISK_STYLES[risk.level]
           return (
             <button
               key={student.id}
@@ -71,6 +119,10 @@ export function StudentsList({ onSelectStudent, onOpenPagos, onOpenCalendario }:
                 />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
+                    <span
+                      className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${riskStyle.dot}`}
+                      title={`${riskStyle.label}: ${risk.headline}`}
+                    />
                     <h3 className="font-semibold text-foreground truncate">{student.name}</h3>
                     <span className={`text-xs px-2 py-0.5 rounded-full bg-opacity-20 ${getLevelColor(student.level)}`}>
                       {getLevelLabel(student.level)}

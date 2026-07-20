@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { CalendarPlus } from "lucide-react"
+import { CalendarPlus, Wallet } from "lucide-react"
 import { AppHeader } from "./app-header"
 import { StatsOverview } from "./stats-overview"
 import { SkillsChart } from "./skills-chart"
@@ -9,9 +9,11 @@ import { Achievements } from "./achievements"
 import { AddSessionForm } from "./add-session-form"
 import { StudentFeedbackView } from "./student-feedback-view"
 import { BookSessionView } from "./book-session-view"
+import { MisPagosView } from "./mis-pagos-view"
 
 export function Dashboard() {
   const [bookingOpen, setBookingOpen] = useState(false)
+  const [pagosOpen, setPagosOpen] = useState(false)
 
   if (bookingOpen) {
     return (
@@ -19,6 +21,17 @@ export function Dashboard() {
         <AppHeader />
         <main className="max-w-lg mx-auto px-4 py-6">
           <BookSessionView onBack={() => setBookingOpen(false)} />
+        </main>
+      </div>
+    )
+  }
+
+  if (pagosOpen) {
+    return (
+      <div className="min-h-screen bg-background pb-8">
+        <AppHeader />
+        <main className="max-w-lg mx-auto px-4 py-6">
+          <MisPagosView onBack={() => setPagosOpen(false)} />
         </main>
       </div>
     )
